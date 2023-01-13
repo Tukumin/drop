@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>ある人の行為が倫理的に正しいか間違っているかを判断する時に、次のような判断材料はあなたの考え方にどの程度関係しますか。以下の尺度を用いて評価してください。</h1>
+    <h3>0:全く関係がない(正しいか間違っているかの判断に全く無関係である)1:あまり関係がない2:わずかに関係がある3:やや関係がある4:とても関係がある5:極めて関係がある(正しいか間違っているかの判断に最も重要である)</h3>
+    <form name="myform">
+        <h4>誰かが精神的に傷ついたかどうか</h4>
+        <input type="radio" name="fruit" value="0">0
+        <input type="radio" name="fruit" value="1">1
+        <input type="radio" name="fruit" value="2">2
+        <input type="radio" name="fruit" value="3">3
+        <input type="radio" name="fruit" value="4">4
+        <input type="radio" name="fruit" value="4">5
+        <h4>弱い人や傷つきやすい人に対する配慮があったかどうか</h4>
+        <input type="radio" name="two" value="0">0
+        <input type="radio" name="two" value="1">1
+        <input type="radio" name="two" value="2">2
+        <input type="radio" name="two" value="3">3
+        <input type="radio" name="two" value="4">4
+        <input type="radio" name="two" value="5">5
+        <h4>その人が残虐であったかどうか</h4>
+        <input type="radio" name="three" value="0">0
+        <input type="radio" name="three" value="1">1
+        <input type="radio" name="three" value="2">2
+        <input type="radio" name="three" value="3">3
+        <input type="radio" name="three" value="4">4
+        <input type="radio" name="three" value="5">5
+        <br>
+        <input type="text" name="total" value="0"> Harm平均
+        </form>
+    
+    <h2>
+        hello
+    </h2>
+        
+
+        <script>
+            //fruitのクリックを監視
+            var fruit_check = document.getElementsByName('fruit');
+            for(i=0;i<fruit_check.length;i++){
+                fruit_check[i].addEventListener('click', function(e){
+                    price_sum();
+                });
+            }
+            var two_check = document.getElementsByName('two');
+            for(i=0;i<two_check.length;i++){
+                two_check[i].addEventListener('click', function(e){
+                    price_sum();
+                });
+            }
+            var three_check = document.getElementsByName('three');
+            for(i=0;i<three_check.length;i++){
+                three_check[i].addEventListener('click', function(e){
+                    price_sum();
+                });
+            }
+            //平均計算
+            function price_sum(){
+                var sum = 0;
+                
+                for (var i = 0; i < fruit_check.length; i++){
+                    if(fruit_check[i].checked){
+                        sum += parseInt(fruit_check[i].value);
+                    }
+                }
+                for (var i = 0; i < two_check.length; i++){
+                    if(two_check[i].checked){
+                        sum += parseInt(two_check[i].value);
+                    }
+                }
+                for (var i = 0; i < three_check.length; i++){
+                    if(three_check[i].checked){
+                        sum += parseInt(three_check[i].value);
+                    }
+                }
+
+                document.myform.total.value=sum/3;
+            }
+        </script>
+</body>
+</html>

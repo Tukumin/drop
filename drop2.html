@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+    <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/dropbox/dist/Dropbox-sdk.min.js"></script>
+  </head>
+<body>
+    <form id="form">
+        <h3>ファイルを選択してアップロード</h3>
+        <input type="file" id="file">
+    </form>
+
+    <script>
+        var input = document.getElementById("file");
+
+        //ダイアログでファイルが選択された時
+        input.addEventListener("change",function(evt){
+            //ファイルを取得      
+            var file = evt.target.files;
+
+            //ファイル名を取得
+            var name = "/" + document.querySelector('#file').files[0].name;
+            
+            //ファイル名を取得
+            var name = "/" + document.querySelector('#file').files[0].name;
+
+            //ファイル名をUTF-8に変換
+            var name = encode_utf8(name);
+
+            function encode_utf8(s){
+                return unescape( encodeURIComponent(s));
+            }
+
+            //FileReaderの作成
+            var reader = new FileReader();
+
+            //テキスト形式で読み込む
+            reader.readAsText(file[0]);
+
+            //読込終了後の処理
+            reader.onload = function(ev){
+                //ドロップボックスのファイルAPI
+                json = {
+                    url: 'https://unpkg.com/dropbox/dist/Dropbox-sdk.min.js',
+                    type: 'post',
+                    data: reader.result,
+                    processData: false,
+                    contentType: 'application/octet-stream',
+                    headers: {
+                        "Authorization": "7vob1wsstxsudej",
+                        "Dropbox-API-Arg": '{"path": "'+name+'","mode": "add","autorename": true,"mute": false}'
+                    },
+                    success: function (data) {
+                        console.log('s' + data);
+                    },
+                    error: function (data) {
+                        console.error('e'+ data);
+                    }
+                }
+
+                //ドロップボックスにアップロード
+                $.ajax(json)
+            }
+        },false);
+    </script>
+</body>
+</html>
